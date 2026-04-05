@@ -1,0 +1,6 @@
+<avtk-quirks>
+    <avtk-lmt-l1000-quirk type="broken-exponent">
+	<instrument model="L1003" serial="02B316"/>
+	<version prefix="A390" major="1" minor="3" date="1999-10-05"/>
+    </avtk-lmt-l1000-quirk>
+</avtk-quirks>

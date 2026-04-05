@@ -1,0 +1,5 @@
+<default-modes>
+  <default-mode xres="2560" yres="1600" no-colours="16M" colour-class="T" vfreq="60">
+    <require test="monitor/edid[@vendor-id='NEC' and @product-id='6811']"/>
+  </default-mode>
+</default-modes>

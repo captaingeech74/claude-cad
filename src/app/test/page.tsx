@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import {
   Monitor,
-  AlertTriangle,
-  Download,
-  ExternalLink,
   Maximize2,
   CheckCircle,
   Info,
@@ -13,53 +10,89 @@ import {
   Play,
   Sun,
   Eye,
-  FolderOpen,
-  MousePointer,
-  ArrowRight,
-  Cpu,
+  RefreshCw,
+  ArrowLeft,
+  Wifi,
+  AlertTriangle,
 } from "lucide-react";
 
-type ViewMode = "choose" | "emulator-loading" | "emulator-running";
+// The Fly.io backend URL — update this after deploying the backend
+const NOVNC_URL =
+  "https://cad-screener.fly.dev/vnc.html?autoconnect=true&reconnect=true&resize=scale&show_dot=false&path=websockify&cursor=local&compression=2&quality=8";
 
-const GOOGLE_DRIVE_DOWNLOAD_URL =
-  "https://drive.google.com/file/d/1sdBK4WCTNVpaNCKzsIe49T5h7A56T7_p/view?usp=drivesdk";
+type ViewMode = "instructions" | "connecting" | "running";
+
+const PRE_LAUNCH_STEPS = [
+  {
+    icon: Monitor,
+    title: "Use a desktop or laptop",
+    desc: "A full-size monitor gives the best colour accuracy. Avoid phones and tablets.",
+  },
+  {
+    icon: Sun,
+    title: "Disable blue-light filters",
+    desc: "Turn off Night Shift, f.lux, or any warm/night display mode for accurate colour rendering.",
+  },
+  {
+    icon: Eye,
+    title: "Sit in a well-lit room",
+    desc: "Avoid glare on your screen. Overhead lighting is ideal — no direct sunlight on your monitor.",
+  },
+  {
+    icon: Info,
+    title: "Allow about 3 minutes",
+    desc: "The test is brief but requires your full focus. Find a quiet moment to complete it uninterrupted.",
+  },
+];
 
 export default function TestPage() {
-  const [viewMode, setViewMode] = useState<ViewMode>("choose");
-  const [emulatorError, setEmulatorError] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>("instructions");
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const launchEmulator = useCallback(() => {
-    setViewMode("emulator-loading");
-    setEmulatorError(false);
-    setTimeout(() => setViewMode("emulator-running"), 800);
+  const launchTest = useCallback(() => {
+    setViewMode("connecting");
+    setConnectionError(false);
+    setIframeLoaded(false);
+    // After a brief moment, transition to running view so the iframe starts loading
+    setTimeout(() => setViewMode("running"), 400);
   }, []);
 
-  const goFullscreen = useCallback(() => {
-    const iframe = document.getElementById("emulator-frame") as HTMLIFrameElement;
-    if (iframe?.requestFullscreen) {
-      iframe.requestFullscreen();
+  const handleIframeLoad = useCallback(() => {
+    setIframeLoaded(true);
+  }, []);
+
+  const handleIframeError = useCallback(() => {
+    setConnectionError(true);
+  }, []);
+
+  const restartTest = useCallback(() => {
+    setIframeLoaded(false);
+    setConnectionError(false);
+    if (iframeRef.current) {
+      iframeRef.current.src = NOVNC_URL;
     }
   }, []);
 
-  // Listen for messages from the Boxedwine iframe
-  useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.data?.type === "boxedwine-status") {
-        if (event.data.state === "error") {
-          setEmulatorError(true);
-        }
-      }
-    };
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+  const goFullscreen = useCallback(() => {
+    if (iframeRef.current?.requestFullscreen) {
+      iframeRef.current.requestFullscreen();
+    }
+  }, []);
+
+  const exitTest = useCallback(() => {
+    setViewMode("instructions");
+    setIframeLoaded(false);
+    setConnectionError(false);
   }, []);
 
   return (
     <div className="min-h-[calc(100vh-4rem)]">
-      {/* Main instructions + options */}
-      {viewMode === "choose" && (
+      {/* ─── INSTRUCTIONS / PRE-LAUNCH ─── */}
+      {viewMode === "instructions" && (
         <div className="py-12 sm:py-20">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
@@ -69,41 +102,21 @@ export default function TestPage() {
               <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
                 Take the Colour Vision Screening Test
               </h1>
-              <p className="text-lg text-muted max-w-2xl mx-auto">
-                The CAD Colour Vision Screener screens for red-green and
-                blue-yellow colour vision deficiencies in under 3 minutes.
+              <p className="text-lg text-muted max-w-2xl mx-auto leading-relaxed">
+                The CAD Colour Vision Screener detects red-green and blue-yellow
+                colour vision deficiencies in under 3 minutes. It runs directly
+                in your browser — no installation required.
               </p>
             </div>
 
             {/* Before You Begin */}
-            <div className="bg-surface rounded-2xl border border-border p-6 sm:p-8 mb-8">
+            <div className="bg-surface rounded-2xl border border-border p-6 sm:p-8 mb-6">
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-primary" />
                 Before You Begin
               </h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                {[
-                  {
-                    icon: Monitor,
-                    title: "Use a Windows Desktop or Laptop",
-                    desc: "This test requires a Windows PC with a full-size monitor. It cannot run on Mac, Linux, or mobile devices.",
-                  },
-                  {
-                    icon: Sun,
-                    title: "Check Your Display Settings",
-                    desc: "Set your monitor to sRGB colour mode if available. Disable Night Shift, f.lux, or any blue-light filters.",
-                  },
-                  {
-                    icon: Eye,
-                    title: "Ensure Good Lighting",
-                    desc: "Sit in a well-lit room without glare on your screen. Avoid direct sunlight on the monitor.",
-                  },
-                  {
-                    icon: Info,
-                    title: "Allow ~3 Minutes",
-                    desc: "The screening is quick but requires your full attention. Find a quiet moment to complete it.",
-                  },
-                ].map((item) => (
+                {PRE_LAUNCH_STEPS.map((item) => (
                   <div
                     key={item.title}
                     className="flex items-start gap-3 p-4 rounded-xl bg-background"
@@ -124,135 +137,68 @@ export default function TestPage() {
               </div>
             </div>
 
-            {/* Two Options */}
-            <div className="grid lg:grid-cols-2 gap-6 mb-8">
-              {/* Option 1: Download & Run (Primary) */}
-              <div className="bg-surface rounded-2xl border-2 border-primary/30 p-6 sm:p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl">
-                  Recommended
-                </div>
-
-                <div className="mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <Download className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">
-                    Download &amp; Run on Windows
-                  </h3>
-                  <p className="text-sm text-muted">
-                    Best colour accuracy. Download the official installer
-                    and run the screener natively on your Windows PC.
-                  </p>
-                </div>
-
-                {/* Steps */}
-                <div className="space-y-3 mb-6">
-                  {[
-                    {
-                      step: "1",
-                      icon: Download,
-                      text: "Download the installer (271 MB)",
-                    },
-                    {
-                      step: "2",
-                      icon: MousePointer,
-                      text: "Run the installer — follow the prompts",
-                    },
-                    {
-                      step: "3",
-                      icon: Play,
-                      text: "Launch CAD Screener from your desktop",
-                    },
-                  ].map((s) => (
-                    <div key={s.step} className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0">
-                        {s.step}
-                      </div>
-                      <s.icon className="w-4 h-4 text-muted flex-shrink-0" />
-                      <span className="text-sm text-foreground">{s.text}</span>
+            {/* What to Expect */}
+            <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 sm:p-8 mb-8">
+              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2 text-primary">
+                <Wifi className="w-5 h-5" />
+                How it Works
+              </h2>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {[
+                  {
+                    step: "1",
+                    title: "Connect",
+                    desc: "Your browser connects to a secure cloud environment where the test is running.",
+                  },
+                  {
+                    step: "2",
+                    title: "Test",
+                    desc: "Follow the on-screen instructions. You'll see moving coloured targets and respond using your keyboard.",
+                  },
+                  {
+                    step: "3",
+                    title: "Results",
+                    desc: "The screener displays your results immediately. No data is stored or transmitted.",
+                  },
+                ].map((s) => (
+                  <div key={s.step} className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center flex-shrink-0">
+                      {s.step}
                     </div>
-                  ))}
-                </div>
-
-                <a
-                  href={GOOGLE_DRIVE_DOWNLOAD_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-base font-semibold bg-primary text-white hover:bg-primary-dark transition-all shadow-lg shadow-primary/25"
-                >
-                  <Download className="w-5 h-5" />
-                  Download for Windows
-                  <ExternalLink className="w-4 h-4 opacity-70" />
-                </a>
-
-                <p className="text-xs text-muted mt-3 text-center">
-                  Requires Windows 7 or later. 271 MB download.
-                </p>
-              </div>
-
-              {/* Option 2: Browser Emulator (Experimental) */}
-              <div className="bg-surface rounded-2xl border border-border p-6 sm:p-8">
-                <div className="mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
-                    <Cpu className="w-6 h-6 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">
-                    Try in Browser
-                    <span className="ml-2 text-xs font-medium text-accent bg-accent/10 px-2 py-1 rounded-full">
-                      Experimental
-                    </span>
-                  </h3>
-                  <p className="text-sm text-muted">
-                    Run the screener directly in your browser using a Windows
-                    emulator. No download or installation needed.
-                  </p>
-                </div>
-
-                <div className="bg-warm/5 border border-warm/20 rounded-xl p-4 mb-6">
-                  <div className="flex items-start gap-2">
-                    <AlertTriangle className="w-4 h-4 text-warm flex-shrink-0 mt-0.5" />
-                    <div className="text-xs text-muted">
-                      <p className="font-medium text-foreground mb-1">
-                        Limitations
+                    <div>
+                      <h3 className="font-semibold text-foreground text-sm">
+                        {s.title}
+                      </h3>
+                      <p className="text-xs text-muted mt-1 leading-relaxed">
+                        {s.desc}
                       </p>
-                      <ul className="space-y-1">
-                        <li>
-                          The emulator runs a 32-bit Windows environment. The
-                          CAD Screener is a 64-bit application and may not
-                          function correctly.
-                        </li>
-                        <li>
-                          Colour accuracy may be affected by emulation.
-                        </li>
-                        <li>Performance may be slower than native.</li>
-                      </ul>
                     </div>
                   </div>
-                </div>
-
-                <button
-                  onClick={launchEmulator}
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-base font-semibold bg-surface border-2 border-border text-foreground hover:border-accent/30 hover:bg-accent/5 transition-all"
-                >
-                  <Play className="w-5 h-5" />
-                  Launch in Browser
-                </button>
-
-                <p className="text-xs text-muted mt-3 text-center">
-                  Requires a modern browser with WebAssembly support. ~20 MB
-                  download.
-                </p>
+                ))}
               </div>
             </div>
 
+            {/* Launch Button */}
+            <div className="text-center">
+              <button
+                onClick={launchTest}
+                className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl text-lg font-semibold bg-primary text-white hover:bg-primary-dark transition-all shadow-xl shadow-primary/25 hover:shadow-2xl hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <Play className="w-6 h-6" fill="currentColor" />
+                Launch Colour Vision Test
+              </button>
+              <p className="text-xs text-muted mt-4">
+                Runs in your browser via a secure cloud connection. No download needed.
+              </p>
+            </div>
+
             {/* Disclaimer */}
-            <div className="bg-background rounded-xl border border-border p-5">
+            <div className="mt-8 bg-background rounded-xl border border-border p-5">
               <p className="text-xs text-muted leading-relaxed text-center">
-                <strong>Disclaimer:</strong> The CAD Colour Vision Screener is a
-                screening tool, not a clinical diagnosis. Results are indicative
-                and may vary based on your display hardware and settings. For
-                comprehensive colour vision assessment, including occupational
-                certification, please visit the{" "}
+                <strong>Disclaimer:</strong> This is a screening tool, not a
+                clinical diagnosis. Results may vary based on your display
+                hardware and settings. For occupational certification or
+                comprehensive assessment, visit the{" "}
                 <a
                   href="https://researchcentres.citystgeorges.ac.uk/applied-vision/avot"
                   target="_blank"
@@ -268,39 +214,55 @@ export default function TestPage() {
         </div>
       )}
 
-      {/* Emulator Loading */}
-      {viewMode === "emulator-loading" && (
+      {/* ─── CONNECTING TRANSITION ─── */}
+      {viewMode === "connecting" && (
         <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
           <div className="text-center">
             <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2">
-              Starting Windows Emulator
+              Connecting to Test Environment
             </h2>
-            <p className="text-muted mb-2">
-              Loading the Boxedwine environment and CAD Screener...
-            </p>
-            <p className="text-xs text-muted">
-              This may take a moment on first load
+            <p className="text-muted text-sm">
+              Starting the CAD Screener on a secure cloud server…
             </p>
           </div>
         </div>
       )}
 
-      {/* Emulator Running */}
-      {viewMode === "emulator-running" && (
-        <div className="bg-[#1a1a2e] min-h-[calc(100vh-4rem)] flex flex-col">
+      {/* ─── TEST RUNNING (noVNC) ─── */}
+      {viewMode === "running" && (
+        <div className="bg-[#0f0f1a] min-h-[calc(100vh-4rem)] flex flex-col">
           {/* Toolbar */}
-          <div className="bg-[#111827] border-b border-white/10 px-4 py-2 flex items-center justify-between">
+          <div className="bg-[#111827] border-b border-white/10 px-4 py-2 flex items-center justify-between flex-shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              <div
+                className={`w-2 h-2 rounded-full ${
+                  iframeLoaded && !connectionError
+                    ? "bg-green-400 animate-pulse"
+                    : connectionError
+                    ? "bg-red-400"
+                    : "bg-yellow-400 animate-pulse"
+                }`}
+              />
               <span className="text-white/70 text-sm font-medium">
-                CAD Colour Vision Screener — Emulator
+                CAD Colour Vision Screener v2.7
               </span>
-              <span className="text-white/30 text-xs bg-white/5 px-2 py-0.5 rounded">
-                Experimental
-              </span>
+              {!iframeLoaded && !connectionError && (
+                <span className="text-white/40 text-xs">Connecting…</span>
+              )}
+              {iframeLoaded && (
+                <span className="text-green-400/70 text-xs">Live</span>
+              )}
             </div>
             <div className="flex items-center gap-2">
+              <button
+                onClick={restartTest}
+                title="Restart test"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
+              >
+                <RefreshCw className="w-3 h-3" />
+                Restart
+              </button>
               <button
                 onClick={goFullscreen}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
@@ -309,63 +271,81 @@ export default function TestPage() {
                 Fullscreen
               </button>
               <button
-                onClick={() => setViewMode("choose")}
+                onClick={exitTest}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-colors"
               >
-                Exit
+                <ArrowLeft className="w-3 h-3" />
+                Back
               </button>
             </div>
           </div>
 
-          {/* Emulator iframe */}
-          <div className="flex-1 flex items-center justify-center p-2">
-            {emulatorError ? (
-              <div className="text-center max-w-md">
-                <AlertTriangle className="w-12 h-12 text-warm mx-auto mb-4" />
-                <h2 className="text-xl font-semibold text-white mb-2">
-                  Emulator Error
-                </h2>
-                <p className="text-white/60 mb-6">
-                  The Windows emulator couldn&apos;t run the CAD Screener. This
-                  is expected — the screener is a 64-bit application and the
-                  browser emulator only supports 32-bit.
-                </p>
-                <a
-                  href={GOOGLE_DRIVE_DOWNLOAD_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-primary text-white hover:bg-primary-dark transition-colors"
-                >
-                  <Download className="w-5 h-5" />
-                  Download for Windows Instead
-                </a>
+          {/* noVNC viewport */}
+          <div className="flex-1 relative">
+            {/* Loading overlay while connecting */}
+            {!iframeLoaded && !connectionError && (
+              <div className="absolute inset-0 flex items-center justify-center z-10 bg-[#0f0f1a]">
+                <div className="text-center">
+                  <Loader2 className="w-10 h-10 text-primary animate-spin mx-auto mb-3" />
+                  <p className="text-white/60 text-sm">
+                    Connecting to test environment…
+                  </p>
+                  <p className="text-white/30 text-xs mt-1">
+                    First connection may take up to 15 seconds
+                  </p>
+                </div>
               </div>
-            ) : (
-              <iframe
-                id="emulator-frame"
-                src="/emulator/cad-screener.html?app=cad-screener&p=cad-screener.exe"
-                className="w-full h-full rounded-lg border border-white/10"
-                style={{ minHeight: "calc(100vh - 8rem)" }}
-                allow="fullscreen"
-                title="CAD Colour Vision Screener Emulator"
-              />
             )}
+
+            {/* Connection error state */}
+            {connectionError && (
+              <div className="absolute inset-0 flex items-center justify-center z-10 bg-[#0f0f1a]">
+                <div className="text-center max-w-sm px-4">
+                  <AlertTriangle className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+                  <h2 className="text-xl font-semibold text-white mb-2">
+                    Connection Failed
+                  </h2>
+                  <p className="text-white/60 text-sm mb-6">
+                    Could not reach the test server. The server may be starting
+                    up — this can take up to 30 seconds on first launch.
+                  </p>
+                  <button
+                    onClick={restartTest}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-primary text-white hover:bg-primary-dark transition-colors"
+                  >
+                    <RefreshCw className="w-4 h-4" />
+                    Try Again
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* The actual noVNC iframe */}
+            <iframe
+              ref={iframeRef}
+              id="novnc-frame"
+              src={NOVNC_URL}
+              className="w-full h-full border-0"
+              style={{
+                minHeight: "calc(100vh - 6rem)",
+                opacity: iframeLoaded ? 1 : 0,
+                transition: "opacity 0.3s ease",
+              }}
+              allow="fullscreen"
+              title="CAD Colour Vision Screener"
+              onLoad={handleIframeLoad}
+              onError={handleIframeError}
+            />
           </div>
 
-          {/* Bottom bar */}
-          <div className="bg-[#111827] border-t border-white/10 px-4 py-2 flex items-center justify-between">
-            <span className="text-white/40 text-xs">
-              Powered by Boxedwine (Wine/WebAssembly)
+          {/* Bottom status bar */}
+          <div className="bg-[#111827] border-t border-white/10 px-4 py-1.5 flex items-center justify-between flex-shrink-0">
+            <span className="text-white/30 text-xs">
+              Powered by Wine64 + noVNC · City University London AVOT
             </span>
-            <a
-              href={GOOGLE_DRIVE_DOWNLOAD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 hover:text-white/70 text-xs inline-flex items-center gap-1 transition-colors"
-            >
-              Download for Windows instead
-              <ExternalLink className="w-3 h-3" />
-            </a>
+            <span className="text-white/30 text-xs">
+              Screening tool — not a clinical diagnosis
+            </span>
           </div>
         </div>
       )}

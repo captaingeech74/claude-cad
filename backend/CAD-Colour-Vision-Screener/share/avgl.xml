@@ -1,0 +1,7 @@
+<configuration>
+  <display-templates>
+    <display-template select="DirectX 11"/>
+    <display-template select="OpenGL"/>
+    <display-template select="DirectX 9"/>
+  </display-templates>
+</configuration>

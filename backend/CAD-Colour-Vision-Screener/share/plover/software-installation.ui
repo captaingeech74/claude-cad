@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkAssistant" id="SoftwareInstallation">
+    <property name="border_width">12</property>
+    <property name="title" translatable="yes">Software Installation</property>
+    <signal name="delete_event" handler="gtk_main_quit"/>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+    <child>
+      <object class="GtkLabel" id="SIIntroduction">
+        <property name="visible">True</property>
+        <property name="xalign">0</property>
+        <property name="yalign">0</property>
+        <property name="xpad">16</property>
+        <property name="ypad">16</property>
+        <property name="label" translatable="yes">&lt;b&gt;Welcome to the Installation Assistant&lt;/b&gt;
+
+The Installation Assistant will make the changes to the
+software you have requested. To continue, click Forward.</property>
+        <property name="use_markup">True</property>
+      </object>
+      <packing>
+        <property name="page_type">intro</property>
+        <property name="title" translatable="yes">Software Installation</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkVBox" id="SIConfirm">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkVBox" id="SIIncompatibleInstallation">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="SIIncompatibleInstallationLabel">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="yalign">0</property>
+                <property name="xpad">16</property>
+                <property name="ypad">16</property>
+                <property name="label" translatable="yes">&lt;b&gt;Incompatible Installation&lt;/b&gt;
+
+The existing installation is not from %s
+In order to continue, all the existing packages must be removed.</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkAlignment" id="alignment4">
+                <property name="visible">True</property>
+                <property name="left_padding">16</property>
+                <property name="right_padding">16</property>
+                <child>
+                  <object class="GtkCheckButton" id="SIRemoveExisting">
+                    <property name="label" translatable="yes">Remove all existing packages</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="SISummaryOfWork">
+            <property name="width_request">450</property>
+            <property name="visible">True</property>
+            <property name="xalign">0</property>
+            <property name="yalign">0</property>
+            <property name="xpad">16</property>
+            <property name="ypad">16</property>
+            <property name="label" translatable="yes">&lt;b&gt;Installation Summary&lt;/b&gt;
+
+Packages to be installed or updated: ... plus dependencies.</property>
+            <property name="use_markup">True</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="page_type">confirm</property>
+        <property name="title" translatable="yes">Software Installation (2 of 4)</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkVBox" id="SIProgress">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel" id="SIProgressLabel">
+            <property name="visible">True</property>
+            <property name="xalign">0</property>
+            <property name="yalign">0</property>
+            <property name="xpad">16</property>
+            <property name="ypad">16</property>
+            <property name="label" translatable="yes">&lt;b&gt;Installing the Software&lt;/b&gt;
+
+Please wait while the Installation Assistant installs the software.
+This may take several minutes.</property>
+            <property name="use_markup">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkAlignment" id="alignment2">
+            <property name="visible">True</property>
+            <property name="bottom_padding">16</property>
+            <property name="left_padding">16</property>
+            <property name="right_padding">16</property>
+            <child>
+              <object class="GtkProgressBar" id="SIProgressBar">
+                <property name="visible">True</property>
+                <property name="activity_mode">True</property>
+                <property name="show_text">True</property>
+                <property name="text" translatable="yes">Starting</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="page_type">progress</property>
+        <property name="title" translatable="yes">Software Installation (3 of 4)</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel" id="SISummary">
+        <property name="visible">True</property>
+        <property name="xalign">0</property>
+        <property name="yalign">0</property>
+        <property name="xpad">16</property>
+        <property name="ypad">16</property>
+        <property name="label" translatable="yes">&lt;b&gt;Installation Assistant Completed&lt;/b&gt;
+
+The Installation Assistant has successfully completed.
+Click Close to exit the Assistant.</property>
+        <property name="use_markup">True</property>
+      </object>
+      <packing>
+        <property name="page_type">summary</property>
+        <property name="title" translatable="yes">Software Installation (4 of 4)</property>
+      </packing>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,5 @@
+<post xmlns="http://project.juiblex.co.uk/plover/ns/2009">
+    <command><install-prefix/>\bin\app-manager.exe</command>
+    <argument>--default-action</argument>
+    <argument><repository/></argument>
+</post>

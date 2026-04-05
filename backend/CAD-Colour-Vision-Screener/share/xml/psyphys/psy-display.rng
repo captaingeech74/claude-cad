@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"><start><ref name="psy-display"/></start><define name="psy-display"><element name="psy-display"><optional><ref name="deepcolour-required"/></optional></element></define><define name="deepcolour-required"><element name="deepcolour-required"><attribute name="default"><choice><value>no</value><value>always</value><value>when-expected</value></choice></attribute></element></define></grammar>

@@ -55,7 +55,7 @@ const faq = [
   {
     question: "Is this test accurate when run in a web browser?",
     answer:
-      "The screener runs inside a Windows emulator in your browser, which faithfully reproduces the original software. However, for clinical-grade accuracy, we recommend ensuring your monitor is set to sRGB colour mode, that you're in a well-lit room without glare, and that any blue-light filters (Night Shift, f.lux) are disabled. For official occupational assessments, please visit the AVOT centre in person.",
+      "The screener runs on a secure cloud server (using Wine64 on Linux), with the display streamed live to your browser via noVNC. This means you're interacting with the real, unmodified Windows application — not an emulation. For best results, ensure your monitor is set to sRGB colour mode, you're in a well-lit room, and any blue-light filters are disabled. For official occupational certification, visit the AVOT centre in person.",
   },
   {
     question: "Who should take this test?",
@@ -70,12 +70,12 @@ const faq = [
   {
     question: "Is my data stored or shared?",
     answer:
-      "No. The test runs entirely in your browser. No data is sent to any server, no results are stored, and no personal information is collected. Your screening is completely private.",
+      "No. The test runs on a cloud server that streams only the display to your browser. The server does not record your keystrokes, capture your results, or store any personal information. Your screening is completely private — the server simply runs the visual test application.",
   },
   {
     question: "What if the test doesn't load in my browser?",
     answer:
-      "The test requires a modern browser with WebAssembly support (Chrome, Firefox, Edge, or Safari). If you experience issues, try using a desktop computer rather than a mobile device. You can also download the original Windows executable directly and run it natively on a Windows PC.",
+      "The test requires a modern browser and a stable internet connection to stream from the cloud server. If you experience issues, try using a desktop or laptop with a wired or strong Wi-Fi connection. The test server may take up to 30 seconds to wake up on first access — please be patient and try refreshing.",
   },
   {
     question: "How common is colour vision deficiency?",
@@ -131,24 +131,18 @@ export default function ResourcesPage() {
             ))}
           </div>
 
-          {/* Download Section */}
+          {/* About the backend */}
           <div className="mt-8 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl p-6 border border-primary/10">
             <h3 className="font-semibold text-foreground mb-2">
-              Prefer to run the test natively?
+              How the in-browser test works
             </h3>
-            <p className="text-sm text-muted mb-4">
-              Download the original CAD Colour Vision Screener executable for
-              Windows. This provides the best colour accuracy for screening.
+            <p className="text-sm text-muted mb-0">
+              The CAD Colour Vision Screener is a 64-bit Windows application. Rather than a client-side
+              emulator, we run the real, unmodified application on a Linux cloud server using{" "}
+              <strong>Wine64</strong>, and stream the display to your browser in real time via{" "}
+              <strong>noVNC</strong> (WebSocket VNC). You interact with the genuine software as intended
+              by its developers — no compromises.
             </p>
-            <a
-              href="https://drive.google.com/file/d/1sdBK4WCTNVpaNCKzsIe49T5h7A56T7_p/view?usp=drivesdk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold bg-primary text-white hover:bg-primary-dark transition-colors"
-            >
-              Download for Windows
-              <ExternalLink className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </section>

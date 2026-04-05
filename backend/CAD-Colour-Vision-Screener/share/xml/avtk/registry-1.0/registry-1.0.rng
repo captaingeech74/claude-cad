@@ -1,0 +1,647 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <start>
+    <ref name="registry-idm140480578460432"/>
+  </start>
+  <define name="registry-idm140480578460432">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">registry</name>
+      <group>
+        <group>
+          <group>
+            <choice>
+              <empty/>
+              <attribute>
+                <name ns="">organization</name>
+                <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string"/>
+              </attribute>
+            </choice>
+            <attribute>
+              <name ns="">application</name>
+              <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string"/>
+            </attribute>
+          </group>
+          <choice>
+            <empty/>
+            <attribute>
+              <name ns="">version</name>
+              <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string"/>
+            </attribute>
+          </choice>
+        </group>
+        <choice>
+          <empty/>
+          <oneOrMore>
+            <choice>
+              <choice>
+                <choice>
+                  <choice>
+                    <choice>
+                      <choice>
+                        <choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="char-field-idm140480578546224"/>
+                                <ref name="int-field-idm140480578491824"/>
+                              </choice>
+                              <ref name="long-field-idm140480578496672"/>
+                            </choice>
+                            <ref name="int64-field-idm140480578505632"/>
+                          </choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="uchar-field-idm140480578549008"/>
+                                <ref name="uint-field-idm140480578507952"/>
+                              </choice>
+                              <ref name="ulong-field-idm140480578513504"/>
+                            </choice>
+                            <ref name="uint64-field-idm140480578519056"/>
+                          </choice>
+                        </choice>
+                        <choice>
+                          <ref name="float-field-idm140480578524608"/>
+                          <ref name="double-field-idm140480578533760"/>
+                        </choice>
+                      </choice>
+                      <ref name="string-field-idm140480578538224"/>
+                    </choice>
+                    <ref name="char-field-idm140480578546224"/>
+                  </choice>
+                  <ref name="boolean-field-idm140480578556272"/>
+                </choice>
+                <ref name="vector-field-idm140480578559856"/>
+              </choice>
+              <ref name="record-field-idm140480578564496"/>
+            </choice>
+          </oneOrMore>
+        </choice>
+      </group>
+    </element>
+  </define>
+  <define name="int-field-idm140480578491824">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">int</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="int"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="int-value-idm140480578495104">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">int</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="int"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="long-field-idm140480578496672">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">long</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="long"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="long-value-idm140480578499984">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">long</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="long"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="int64-field-idm140480578505632">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">int64</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="integer"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="int64-value-idm140480578509040">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">int64</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="integer"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="uint-field-idm140480578507952">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">uint</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="unsignedInt"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="uint-value-idm140480578510992">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">uint</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="unsignedInt"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="ulong-field-idm140480578513504">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">ulong</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="unsignedLong"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="ulong-value-idm140480578516544">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">ulong</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="unsignedLong"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="uint64-field-idm140480578519056">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">uint64</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="nonNegativeInteger"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="uint64-value-idm140480578522096">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">uint64</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="nonNegativeInteger"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="float-field-idm140480578524608">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">float</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="hexBinary">
+            <param name="length">4</param>
+          </data>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="float-value-idm140480578531248">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">float</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="hexBinary">
+          <param name="length">4</param>
+        </data>
+      </attribute>
+    </element>
+  </define>
+  <define name="double-field-idm140480578533760">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">double</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="hexBinary">
+            <param name="length">8</param>
+          </data>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="double-value-idm140480578535424">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">double</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="hexBinary">
+          <param name="length">8</param>
+        </data>
+      </attribute>
+    </element>
+  </define>
+  <define name="string-field-idm140480578538224">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">string</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="string-value-idm140480578541504">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">string</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="char-field-idm140480578546224">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">char</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="byte"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="char-value-idm140480578546624">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">char</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="byte"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="uchar-field-idm140480578549008">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">uchar</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="unsignedByte"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="uchar-value-idm140480578551664">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">uchar</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="unsignedByte"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="boolean-field-idm140480578556272">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">boolean</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <attribute>
+          <name ns="">value</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="boolean"/>
+        </attribute>
+      </group>
+    </element>
+  </define>
+  <define name="boolean-value-idm140480578557472">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">boolean</name>
+      <attribute>
+        <name ns="">value</name>
+        <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="boolean"/>
+      </attribute>
+    </element>
+  </define>
+  <define name="vector-field-idm140480578559856">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">vector</name>
+      <group>
+        <attribute>
+          <name ns="">name</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+          </data>
+        </attribute>
+        <choice>
+          <empty/>
+          <oneOrMore>
+            <choice>
+              <choice>
+                <choice>
+                  <choice>
+                    <choice>
+                      <choice>
+                        <choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="char-value-idm140480578546624"/>
+                                <ref name="int-value-idm140480578495104"/>
+                              </choice>
+                              <ref name="long-value-idm140480578499984"/>
+                            </choice>
+                            <ref name="int64-value-idm140480578509040"/>
+                          </choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="uchar-value-idm140480578551664"/>
+                                <ref name="uint-value-idm140480578510992"/>
+                              </choice>
+                              <ref name="ulong-value-idm140480578516544"/>
+                            </choice>
+                            <ref name="uint64-value-idm140480578522096"/>
+                          </choice>
+                        </choice>
+                        <choice>
+                          <ref name="float-value-idm140480578531248"/>
+                          <ref name="double-value-idm140480578535424"/>
+                        </choice>
+                      </choice>
+                      <ref name="string-value-idm140480578541504"/>
+                    </choice>
+                    <ref name="char-value-idm140480578546624"/>
+                  </choice>
+                  <ref name="boolean-value-idm140480578557472"/>
+                </choice>
+                <ref name="vector-value-idm140480578565280"/>
+              </choice>
+              <ref name="record-value-idm140480578567264"/>
+            </choice>
+          </oneOrMore>
+        </choice>
+      </group>
+    </element>
+  </define>
+  <define name="vector-value-idm140480578565280">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">vector</name>
+      <choice>
+        <empty/>
+        <oneOrMore>
+          <choice>
+            <choice>
+              <choice>
+                <choice>
+                  <choice>
+                    <choice>
+                      <choice>
+                        <choice>
+                          <choice>
+                            <choice>
+                              <ref name="char-value-idm140480578546624"/>
+                              <ref name="int-value-idm140480578495104"/>
+                            </choice>
+                            <ref name="long-value-idm140480578499984"/>
+                          </choice>
+                          <ref name="int64-value-idm140480578509040"/>
+                        </choice>
+                        <choice>
+                          <choice>
+                            <choice>
+                              <ref name="uchar-value-idm140480578551664"/>
+                              <ref name="uint-value-idm140480578510992"/>
+                            </choice>
+                            <ref name="ulong-value-idm140480578516544"/>
+                          </choice>
+                          <ref name="uint64-value-idm140480578522096"/>
+                        </choice>
+                      </choice>
+                      <choice>
+                        <ref name="float-value-idm140480578531248"/>
+                        <ref name="double-value-idm140480578535424"/>
+                      </choice>
+                    </choice>
+                    <ref name="string-value-idm140480578541504"/>
+                  </choice>
+                  <ref name="char-value-idm140480578546624"/>
+                </choice>
+                <ref name="boolean-value-idm140480578557472"/>
+              </choice>
+              <ref name="vector-value-idm140480578565280"/>
+            </choice>
+            <ref name="record-value-idm140480578567264"/>
+          </choice>
+        </oneOrMore>
+      </choice>
+    </element>
+  </define>
+  <define name="record-field-idm140480578564496">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">record</name>
+      <group>
+        <group>
+          <attribute>
+            <name ns="">name</name>
+            <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+              <param name="pattern">[a-zA-Z][a-zA-Z0-9-]*</param>
+            </data>
+          </attribute>
+          <attribute>
+            <name ns="">type</name>
+            <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+              <param name="pattern">[a-zA-Z_][a-zA-Z0-9_+-]{2,}</param>
+            </data>
+          </attribute>
+        </group>
+        <choice>
+          <empty/>
+          <oneOrMore>
+            <choice>
+              <choice>
+                <choice>
+                  <choice>
+                    <choice>
+                      <choice>
+                        <choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="char-field-idm140480578546224"/>
+                                <ref name="int-field-idm140480578491824"/>
+                              </choice>
+                              <ref name="long-field-idm140480578496672"/>
+                            </choice>
+                            <ref name="int64-field-idm140480578505632"/>
+                          </choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="uchar-field-idm140480578549008"/>
+                                <ref name="uint-field-idm140480578507952"/>
+                              </choice>
+                              <ref name="ulong-field-idm140480578513504"/>
+                            </choice>
+                            <ref name="uint64-field-idm140480578519056"/>
+                          </choice>
+                        </choice>
+                        <choice>
+                          <ref name="float-field-idm140480578524608"/>
+                          <ref name="double-field-idm140480578533760"/>
+                        </choice>
+                      </choice>
+                      <ref name="string-field-idm140480578538224"/>
+                    </choice>
+                    <ref name="char-field-idm140480578546224"/>
+                  </choice>
+                  <ref name="boolean-field-idm140480578556272"/>
+                </choice>
+                <ref name="vector-field-idm140480578559856"/>
+              </choice>
+              <ref name="record-field-idm140480578564496"/>
+            </choice>
+          </oneOrMore>
+        </choice>
+      </group>
+    </element>
+  </define>
+  <define name="record-value-idm140480578567264">
+    <element>
+      <name ns="http://city-occupational.co.uk/ns/registry/1.0">record</name>
+      <group>
+        <attribute>
+          <name ns="">type</name>
+          <data datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" type="string">
+            <param name="pattern">[a-zA-Z_][a-zA-Z0-9_+-]{2,}</param>
+          </data>
+        </attribute>
+        <choice>
+          <empty/>
+          <oneOrMore>
+            <choice>
+              <choice>
+                <choice>
+                  <choice>
+                    <choice>
+                      <choice>
+                        <choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="char-field-idm140480578546224"/>
+                                <ref name="int-field-idm140480578491824"/>
+                              </choice>
+                              <ref name="long-field-idm140480578496672"/>
+                            </choice>
+                            <ref name="int64-field-idm140480578505632"/>
+                          </choice>
+                          <choice>
+                            <choice>
+                              <choice>
+                                <ref name="uchar-field-idm140480578549008"/>
+                                <ref name="uint-field-idm140480578507952"/>
+                              </choice>
+                              <ref name="ulong-field-idm140480578513504"/>
+                            </choice>
+                            <ref name="uint64-field-idm140480578519056"/>
+                          </choice>
+                        </choice>
+                        <choice>
+                          <ref name="float-field-idm140480578524608"/>
+                          <ref name="double-field-idm140480578533760"/>
+                        </choice>
+                      </choice>
+                      <ref name="string-field-idm140480578538224"/>
+                    </choice>
+                    <ref name="char-field-idm140480578546224"/>
+                  </choice>
+                  <ref name="boolean-field-idm140480578556272"/>
+                </choice>
+                <ref name="vector-field-idm140480578559856"/>
+              </choice>
+              <ref name="record-field-idm140480578564496"/>
+            </choice>
+          </oneOrMore>
+        </choice>
+      </group>
+    </element>
+  </define>
+</grammar>

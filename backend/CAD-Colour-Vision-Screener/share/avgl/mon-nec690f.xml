@@ -1,0 +1,8 @@
+<default-modes>
+  <default-mode xres="1920" yres="1200" no-colours="1G" colour-class="T" vfreq="60">
+    <require test="(subsystem[starts-with(@name,'DirectX')] or mode[@no-colours='1073741824']) and monitor/edid[@vendor-id='NEC' and @product-id='690F']"/>
+  </default-mode>
+  <default-mode xres="1920" yres="1200" no-colours="16M" colour-class="T" vfreq="60">
+    <require test="monitor/edid[@vendor-id='NEC' and @product-id='690F']"/>
+  </default-mode>
+</default-modes>

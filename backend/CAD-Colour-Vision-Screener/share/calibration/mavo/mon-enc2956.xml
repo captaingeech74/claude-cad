@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE calibration SYSTEM "calibration.dtd">
+<calibration>
+  <mavo model="M 504 G">
+    <source model="ENC2956">
+      <correction x="0.6822" y="0.3137">
+	<fit>
+	  <coefficient>0</coefficient>
+	  <coefficient>1.08577</coefficient>
+	</fit>
+      </correction>
+      <correction x="0.2116" y="0.7365">
+	<fit>
+	  <coefficient>0</coefficient>
+	  <coefficient>1.0599</coefficient>
+	</fit>
+      </correction>
+      <correction x="0.1504" y="0.0427">
+	<fit>
+	  <coefficient>0</coefficient>
+	  <coefficient>1.1015</coefficient>
+	</fit>
+      </correction>
+      <correction x="0.2865" y="0.2886">
+	<fit>
+	  <coefficient>0</coefficient>
+	  <coefficient>1.0959</coefficient>
+	</fit>
+      </correction>
+    </source>
+  </mavo>
+</calibration>

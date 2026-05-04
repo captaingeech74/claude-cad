@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight, Eye } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Colour Vision Deficiency | CADVision",
+  title: "About Colour Vision Deficiency | Flying Colors",
   description:
     "Learn about colour vision deficiency (colour blindness): types, causes, prevalence, and how the CAD test works.",
 };

@@ -13,14 +13,14 @@ export default function Footer() {
                 <Eye className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-lg text-white">
-                CAD<span className="text-primary-light">Vision</span>
+                Flying <span className="text-primary-light">Colors</span>
               </span>
             </div>
             <p className="text-sm leading-relaxed max-w-md">
-              Providing free access to the CAD Colour Vision Screener, developed
-              by the Applied Vision Research Centre at City St George&apos;s,
-              University of London. Helping people understand their color vision
-              since 2024.
+              Helping pilots and aviation professionals meet updated FAA colour
+              vision requirements. Powered by the CAD Colour Vision Screener from
+              the Applied Vision Research Centre at City St George&apos;s,
+              University of London.
             </p>
           </div>
 

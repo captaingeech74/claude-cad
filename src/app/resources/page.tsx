@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Resources | CADVision",
+  title: "Resources | Flying Colors",
   description:
     "Resources about colour vision deficiency, the CAD test, research links, and frequently asked questions.",
 };

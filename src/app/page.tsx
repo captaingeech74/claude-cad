@@ -27,18 +27,19 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               <Sparkles className="w-4 h-4" />
-              Free Colour Vision Screening
+              Free FAA Color Vision Screening for Pilots
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-6">
-              See the World in{" "}
-              <span className="gradient-text">Full Colour</span>
+              Pass Your Color Vision Test{" "}
+              <span className="gradient-text">with Flying Colors</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-8 leading-relaxed">
-              Take the free CAD Colour Vision Screener — the gold-standard
-              screening tool developed by City University London. Discover your
-              colour vision profile in under 3 minutes.
+              Updated FAA color vision requirements got you worried? Screen
+              yourself right now — free, in your browser, in under 3 minutes —
+              using the same gold-standard CAD test trusted by aviation
+              authorities worldwide.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

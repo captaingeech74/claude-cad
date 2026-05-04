@@ -4,26 +4,29 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "CAD Colour Vision Screener | Free Color Blindness Test",
+  title: "Flying Colors | Free FAA Color Vision Screening for Pilots",
   description:
-    "Take the free CAD Colour Vision Screener developed by City University London. Screen for red-green and yellow-blue color vision deficiencies in under 3 minutes.",
+    "Meet updated FAA color vision requirements with confidence. Flying Colors offers the free CAD Colour Vision Screener — the gold-standard test used in aviation worldwide. Results in under 3 minutes.",
   keywords: [
-    "color blindness test",
-    "colour vision",
+    "FAA color vision test",
+    "pilot color blindness test",
+    "aviation color vision",
+    "FAA medical requirements",
+    "colour vision screening",
     "CAD test",
     "color vision deficiency",
     "deuteranopia",
     "protanopia",
-    "tritanopia",
     "free screening",
+    "flying colors",
   ],
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "CAD Colour Vision Screener | Free Color Blindness Test",
+    title: "Flying Colors | Free FAA Color Vision Screening for Pilots",
     description:
-      "Screen for color vision deficiencies in under 3 minutes with the gold-standard CAD test from City University London.",
+      "Meet updated FAA color vision requirements with confidence. Free, runs in your browser, results in under 3 minutes.",
     type: "website",
   },
 };
